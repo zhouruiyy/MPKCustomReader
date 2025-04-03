@@ -7,15 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06D0C46EDDB09515A6AF100C /* Pods_MPKCustomReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0896812A9E6070CFD2C19131 /* Pods_MPKCustomReader.framework */; };
 		F0F023A02D9E644D007A1FC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F0239F2D9E644D007A1FC0 /* AppDelegate.swift */; };
 		F0F023A22D9E644D007A1FC0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F023A12D9E644D007A1FC0 /* SceneDelegate.swift */; };
 		F0F023A42D9E644D007A1FC0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F023A32D9E644D007A1FC0 /* ViewController.swift */; };
 		F0F023A72D9E644D007A1FC0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = F0F023A62D9E644D007A1FC0 /* Base */; };
 		F0F023A92D9E644F007A1FC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0F023A82D9E644F007A1FC0 /* Assets.xcassets */; };
 		F0F023AC2D9E644F007A1FC0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = F0F023AB2D9E644F007A1FC0 /* Base */; };
+		F0F023B42D9E6467007A1FC0 /* RtcManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F023B32D9E6467007A1FC0 /* RtcManager.swift */; };
+		F0F023BD2D9E646F007A1FC0 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F023B52D9E646F007A1FC0 /* CacheManager.swift */; };
+		F0F023BE2D9E646F007A1FC0 /* CryptoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F023B62D9E646F007A1FC0 /* CryptoHeader.swift */; };
+		F0F023BF2D9E646F007A1FC0 /* CustomDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F023B72D9E646F007A1FC0 /* CustomDataReader.swift */; };
+		F0F023C02D9E646F007A1FC0 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F023B82D9E646F007A1FC0 /* Logger.swift */; };
+		F0F023C12D9E646F007A1FC0 /* MediaPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F023B92D9E646F007A1FC0 /* MediaPlayerViewController.swift */; };
+		F0F023C22D9E646F007A1FC0 /* NetworkDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F023BA2D9E646F007A1FC0 /* NetworkDataReader.swift */; };
+		F0F023C32D9E646F007A1FC0 /* XORCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F023BB2D9E646F007A1FC0 /* XORCrypto.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0896812A9E6070CFD2C19131 /* Pods_MPKCustomReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MPKCustomReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D40CA91616D9C59BA6FD2BE2 /* Pods-MPKCustomReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MPKCustomReader.release.xcconfig"; path = "Target Support Files/Pods-MPKCustomReader/Pods-MPKCustomReader.release.xcconfig"; sourceTree = "<group>"; };
+		ED38EA23393306050ECBF0A6 /* Pods-MPKCustomReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MPKCustomReader.debug.xcconfig"; path = "Target Support Files/Pods-MPKCustomReader/Pods-MPKCustomReader.debug.xcconfig"; sourceTree = "<group>"; };
 		F0F0239C2D9E644D007A1FC0 /* MPKCustomReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPKCustomReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0F0239F2D9E644D007A1FC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0F023A12D9E644D007A1FC0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +36,14 @@
 		F0F023A82D9E644F007A1FC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0F023AB2D9E644F007A1FC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F0F023AD2D9E644F007A1FC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0F023B32D9E6467007A1FC0 /* RtcManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RtcManager.swift; sourceTree = "<group>"; };
+		F0F023B52D9E646F007A1FC0 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		F0F023B62D9E646F007A1FC0 /* CryptoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoHeader.swift; sourceTree = "<group>"; };
+		F0F023B72D9E646F007A1FC0 /* CustomDataReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDataReader.swift; sourceTree = "<group>"; };
+		F0F023B82D9E646F007A1FC0 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		F0F023B92D9E646F007A1FC0 /* MediaPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPlayerViewController.swift; sourceTree = "<group>"; };
+		F0F023BA2D9E646F007A1FC0 /* NetworkDataReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDataReader.swift; sourceTree = "<group>"; };
+		F0F023BB2D9E646F007A1FC0 /* XORCrypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORCrypto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +51,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06D0C46EDDB09515A6AF100C /* Pods_MPKCustomReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		68453140E0C7E97410331D64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0896812A9E6070CFD2C19131 /* Pods_MPKCustomReader.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DE9254D15C066A6F384FA92F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ED38EA23393306050ECBF0A6 /* Pods-MPKCustomReader.debug.xcconfig */,
+				D40CA91616D9C59BA6FD2BE2 /* Pods-MPKCustomReader.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F0F023932D9E644D007A1FC0 = {
 			isa = PBXGroup;
 			children = (
 				F0F0239E2D9E644D007A1FC0 /* MPKCustomReader */,
 				F0F0239D2D9E644D007A1FC0 /* Products */,
+				DE9254D15C066A6F384FA92F /* Pods */,
+				68453140E0C7E97410331D64 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,12 +99,28 @@
 				F0F0239F2D9E644D007A1FC0 /* AppDelegate.swift */,
 				F0F023A12D9E644D007A1FC0 /* SceneDelegate.swift */,
 				F0F023A32D9E644D007A1FC0 /* ViewController.swift */,
+				F0F023B32D9E6467007A1FC0 /* RtcManager.swift */,
+				F0F023BC2D9E646F007A1FC0 /* mpk */,
 				F0F023A52D9E644D007A1FC0 /* Main.storyboard */,
 				F0F023A82D9E644F007A1FC0 /* Assets.xcassets */,
 				F0F023AA2D9E644F007A1FC0 /* LaunchScreen.storyboard */,
 				F0F023AD2D9E644F007A1FC0 /* Info.plist */,
 			);
 			path = MPKCustomReader;
+			sourceTree = "<group>";
+		};
+		F0F023BC2D9E646F007A1FC0 /* mpk */ = {
+			isa = PBXGroup;
+			children = (
+				F0F023B52D9E646F007A1FC0 /* CacheManager.swift */,
+				F0F023B62D9E646F007A1FC0 /* CryptoHeader.swift */,
+				F0F023B72D9E646F007A1FC0 /* CustomDataReader.swift */,
+				F0F023B82D9E646F007A1FC0 /* Logger.swift */,
+				F0F023B92D9E646F007A1FC0 /* MediaPlayerViewController.swift */,
+				F0F023BA2D9E646F007A1FC0 /* NetworkDataReader.swift */,
+				F0F023BB2D9E646F007A1FC0 /* XORCrypto.swift */,
+			);
+			path = mpk;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +130,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0F023B02D9E644F007A1FC0 /* Build configuration list for PBXNativeTarget "MPKCustomReader" */;
 			buildPhases = (
+				983CEF428BE303F8D60FE731 /* [CP] Check Pods Manifest.lock */,
 				F0F023982D9E644D007A1FC0 /* Sources */,
 				F0F023992D9E644D007A1FC0 /* Frameworks */,
 				F0F0239A2D9E644D007A1FC0 /* Resources */,
+				A7059A93226FFAAFE46AB674 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,14 +191,64 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		983CEF428BE303F8D60FE731 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MPKCustomReader-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7059A93226FFAAFE46AB674 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MPKCustomReader/Pods-MPKCustomReader-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MPKCustomReader/Pods-MPKCustomReader-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MPKCustomReader/Pods-MPKCustomReader-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F0F023982D9E644D007A1FC0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F0F023A42D9E644D007A1FC0 /* ViewController.swift in Sources */,
+				F0F023C12D9E646F007A1FC0 /* MediaPlayerViewController.swift in Sources */,
+				F0F023BE2D9E646F007A1FC0 /* CryptoHeader.swift in Sources */,
+				F0F023BD2D9E646F007A1FC0 /* CacheManager.swift in Sources */,
 				F0F023A02D9E644D007A1FC0 /* AppDelegate.swift in Sources */,
+				F0F023BF2D9E646F007A1FC0 /* CustomDataReader.swift in Sources */,
 				F0F023A22D9E644D007A1FC0 /* SceneDelegate.swift in Sources */,
+				F0F023C22D9E646F007A1FC0 /* NetworkDataReader.swift in Sources */,
+				F0F023B42D9E6467007A1FC0 /* RtcManager.swift in Sources */,
+				F0F023C02D9E646F007A1FC0 /* Logger.swift in Sources */,
+				F0F023C32D9E646F007A1FC0 /* XORCrypto.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,12 +395,14 @@
 		};
 		F0F023B12D9E644F007A1FC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED38EA23393306050ECBF0A6 /* Pods-MPKCustomReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5S4QSMZLCU;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MPKCustomReader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -315,12 +425,14 @@
 		};
 		F0F023B22D9E644F007A1FC0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D40CA91616D9C59BA6FD2BE2 /* Pods-MPKCustomReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5S4QSMZLCU;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MPKCustomReader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
