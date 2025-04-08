@@ -9,7 +9,7 @@ class MediaPlayerViewController: UIViewController {
     private var dataReaders: [String: CustomDataReader] = [:]
     private var networkDataReader: NetworkDataReader?
     private var progressUpdateTimer: Timer?
-    private var sourceType: SourceType = .local
+    private var sourceType: SourceType = .network
     private var networkURL: String = ""
     
     private enum SourceType: Int {
@@ -118,7 +118,7 @@ class MediaPlayerViewController: UIViewController {
     private lazy var sourceSegmentControl: UISegmentedControl = {
         let items = ["Local File", "Network URL"]
         let control = UISegmentedControl(items: items)
-        control.selectedSegmentIndex = 0
+        control.selectedSegmentIndex = 1
         control.addTarget(self, action: #selector(sourceTypeChanged(_:)), for: .valueChanged)
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
@@ -129,7 +129,7 @@ class MediaPlayerViewController: UIViewController {
         textField.placeholder = "Enter MP4 URL"
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.isHidden = true
+        textField.isHidden = false
         return textField
     }()
     
