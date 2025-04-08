@@ -25,6 +25,17 @@ class MediaPlayerViewController: UIViewController {
         return view
     }()
     
+    private lazy var exitButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("退出", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemRed
+        button.layer.cornerRadius = 8
+        button.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private lazy var playButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Play", for: .normal)
@@ -176,6 +187,9 @@ class MediaPlayerViewController: UIViewController {
         // 添加视频容器视图
         view.addSubview(videoContainerView)
         
+        // 添加退出按钮
+        view.addSubview(exitButton)
+        
         let controlStack = UIStackView(arrangedSubviews: [playButton, stopButton, backwardButton, forwardButton])
         controlStack.axis = .horizontal
         controlStack.spacing = 20
@@ -234,8 +248,14 @@ class MediaPlayerViewController: UIViewController {
         view.addSubview(mainStack)
         
         NSLayoutConstraint.activate([
+            // 设置退出按钮的约束
+            exitButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            exitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            exitButton.widthAnchor.constraint(equalToConstant: 60),
+            exitButton.heightAnchor.constraint(equalToConstant: 40),
+            
             // 设置视频容器视图的约束
-            videoContainerView.heightAnchor.constraint(equalToConstant: 300),  // 设置合适的高度
+            videoContainerView.heightAnchor.constraint(equalToConstant: 300),
             videoContainerView.widthAnchor.constraint(equalTo: mainStack.widthAnchor),
             
             mainStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -267,8 +287,8 @@ class MediaPlayerViewController: UIViewController {
     }
     
     @objc private func stopButtonTapped() {
-        mediaPlayer?.stop()
         networkDataReader?.stop()
+        mediaPlayer?.stop()
     }
     
     @objc private func sourceTypeChanged(_ sender: UISegmentedControl) {
@@ -343,6 +363,13 @@ class MediaPlayerViewController: UIViewController {
     private func setupMediaPlayer(_ mediaPlayer: AgoraRtcMediaPlayerProtocol,
                                 withURL path: String,
                                 isEncrypted: Bool) async -> Bool {
+        if let oldReader = networkDataReader {
+            oldReader.stop()
+            mediaPlayer.stop()
+            oldReader.cleanUp()
+            networkDataReader = nil
+        }
+        
         networkDataReader = NetworkDataReader(isEncrypted: isEncrypted)
         guard let dataReader = networkDataReader else { return false }
         
@@ -449,8 +476,17 @@ class MediaPlayerViewController: UIViewController {
     // MARK: - Cleanup
     private func cleanUp() {
         stopProgressTimer()
-        mediaPlayer?.stop()
         dataReaders.removeAll()
+        networkDataReader?.cleanUp()
+        networkDataReader = nil
+        mediaPlayer?.stop()
+        rtcManager.agoraKit.destroyMediaPlayer(mediaPlayer)
+        mediaPlayer = nil
+    }
+    
+    deinit {
+        cleanUp()
+        Logger.log("MediaPlayerViewController deinit", className: "MediaPlayerViewController")
     }
     
     // MARK: - Encrypt Button
@@ -592,6 +628,11 @@ class MediaPlayerViewController: UIViewController {
             Logger.log("Buffering ended", className: "MediaPlayerViewController")
             mediaPlayer?.play()
         }
+    }
+    
+    @objc private func exitButtonTapped() {
+        cleanUp()
+        dismiss(animated: true)
     }
 }
 

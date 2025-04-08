@@ -12,6 +12,7 @@ class NetworkDataReader: NSObject, URLSessionDataDelegate {
     private var isMpkStopped = false            // MPK 停止状态标志
     private var fileSize: Int64 = -1
     private var cacheFilePath: String?           // 缓存文件路径
+    private var tempCacheFilePath: String?       // 临时缓存文件路径
     private let readCondition = NSCondition()    // 用于同步读取操作的条件锁
     
     private let isEncrypted: Bool
@@ -64,8 +65,9 @@ class NetworkDataReader: NSObject, URLSessionDataDelegate {
         
         Logger.log("Starting download from: \(urlString)", className: "NetworkDataReader")
         
-        // 获取缓存文件路径
+        // 获取缓存文件路径和临时文件路径
         cacheFilePath = cacheManager.getCacheFilePath(for: url)
+        tempCacheFilePath = cacheManager.getTempCacheFilePath(for: url)
         
         // 检查本地缓存文件是否存在
         if let cachePath = cacheFilePath,
@@ -137,15 +139,68 @@ class NetworkDataReader: NSObject, URLSessionDataDelegate {
     }
     
     func stop() {
+        Logger.log("Stopping NetworkDataReader", className: "NetworkDataReader")
+        // 只停止播放，不影响下载
         readQueue.sync {
             isMpkStopped = true
-            isDownloading = false
+            
             // 通知所有等待的读取操作
             readCondition.lock()
             readCondition.broadcast()
             readCondition.unlock()
             Logger.log("MPK stopped, notifying all waiting operations", className: "NetworkDataReader")
         }
+    }
+    
+    func cleanUp() {
+        Logger.log("Cleaning up NetworkDataReader", className: "NetworkDataReader")
+        // 先停止下载任务
+        downloadQueue.sync {
+            self.downloadTask?.cancel()
+            self.downloadTask = nil
+            self.isDownloading = false
+        }
+        
+        // 设置停止标志
+        readQueue.sync {
+            isMpkStopped = true
+            isDownloading = false
+            
+            // 通知所有等待的读取操作
+            readCondition.lock()
+            readCondition.broadcast()
+            readCondition.unlock()
+            
+            // 清理下载的数据
+            downloadedBuffer.removeAll()
+            _currentPosition = 0
+            _totalBytesReceived = 0
+
+            // 清理缓存文件
+            if let tempPath = tempCacheFilePath {
+                Task {
+                    do {
+                        // 检查文件是否存在
+                        if cacheManager.fileExists(at: tempPath) {
+                            try await cacheManager.removeCacheFile(at: tempPath)
+                            Logger.log("Successfully removed temp cache file", className: "NetworkDataReader")
+                        } else {
+                            Logger.log("Temp cache file does not exist, skipping removal", className: "NetworkDataReader")
+                        }
+                    } catch {
+                        Logger.log("Failed to remove temp cache file: \(error)", className: "NetworkDataReader")
+                    }
+                }
+            }
+            Logger.log("NetworkDataReader cleaned up", className: "NetworkDataReader")
+        }
+    }
+    
+    deinit {
+        cleanUp()
+        session?.invalidateAndCancel()
+        session = nil
+        Logger.log("NetworkDataReader deinit", className: "NetworkDataReader")
     }
     
     // MARK: - Media Player Callbacks
@@ -366,14 +421,14 @@ class NetworkDataReader: NSObject, URLSessionDataDelegate {
                 
                 Logger.log("Updated buffer - Total received: \(self._totalBytesReceived), Buffer size: \(self.downloadedBuffer.count)", className: "NetworkDataReader")
 
-                if let cachePath = self.cacheFilePath {
+                if let tempPath = self.tempCacheFilePath {
                     do {
                         // 检查是否是第一个数据块
                         let isFirstChunk = data.count == self._totalBytesReceived
-                        Logger.log("Saving chunk to cache - Size: \(data.count), Is first chunk: \(isFirstChunk), Total received: \(self._totalBytesReceived)", className: "NetworkDataReader")
-                        try self.cacheManager.saveEncryptedData(data, to: cachePath, isFirstChunk: isFirstChunk)
+                        Logger.log("Saving chunk to temp cache - Size: \(data.count), Is first chunk: \(isFirstChunk), Total received: \(self._totalBytesReceived)", className: "NetworkDataReader")
+                        try self.cacheManager.saveEncryptedData(data, to: tempPath, isFirstChunk: isFirstChunk)
                     } catch {
-                        Logger.log("Failed to save encrypted data to cache: \(error)", className: "NetworkDataReader")
+                        Logger.log("Failed to save encrypted data to temp cache: \(error)", className: "NetworkDataReader")
                     }
                 }
             }
@@ -436,22 +491,36 @@ class NetworkDataReader: NSObject, URLSessionDataDelegate {
                     self.readCondition.unlock()
                 }
                 
-                // 只在下载出错时删除缓存文件
-                if let cachePath = self.cacheFilePath {
+                // 只在下载出错时删除临时缓存文件
+                if let tempPath = self.tempCacheFilePath {
                     Task {
                         do {
-                            try await self.cacheManager.removeCacheFile(at: cachePath)
+                            if self.cacheManager.fileExists(at: tempPath) {
+                                try await self.cacheManager.removeCacheFile(at: tempPath)
+                            } else {
+                                Logger.log("Temp cache file does not exist, skipping removal", className: "NetworkDataReader")
+                            }
                         } catch {
-                            Logger.log("Failed to clear cache file: \(error)", className: "NetworkDataReader")
+                            Logger.log("Failed to clear temp cache file: \(error)", className: "NetworkDataReader")
                         }
                     }
                 }
             } else {
                 Logger.log("Download completed successfully - Received: \(self._totalBytesReceived) bytes", className: "NetworkDataReader")
-                // 下载成功，保留缓存文件
-                if let cachePath = self.cacheFilePath {
-                    Logger.log("Cache file preserved at: \(cachePath)", className: "NetworkDataReader")
+                
+                // 下载成功，将临时文件重命名为最终文件
+                if let tempPath = self.tempCacheFilePath,
+                   let finalPath = self.cacheFilePath {
+                    Task {
+                        do {
+                            try await self.cacheManager.moveTempFile(from: tempPath, to: finalPath)
+                            Logger.log("Successfully moved temp file to final location: \(finalPath)", className: "NetworkDataReader")
+                        } catch {
+                            Logger.log("Failed to move temp file to final location: \(error)", className: "NetworkDataReader")
+                        }
+                    }
                 }
+                
                 DispatchQueue.main.async {
                     self.onProgressUpdate?(1)
                 }
